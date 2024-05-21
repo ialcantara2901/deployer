@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  deployer:
+    image: igoralcantara/deployer:0.1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_QUEUE=deployments
+    deploy:
+      replicas: 1
