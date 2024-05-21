@@ -15,7 +15,7 @@ RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # Copiar o código para o diretório de trabalho
-COPY . /app
+COPY ./app /app
 WORKDIR /app
 
 ENTRYPOINT ["python", "deploy.py"]
