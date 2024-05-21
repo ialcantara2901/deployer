@@ -1,0 +1,19 @@
+name: Publish image docker hub
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  publish_image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: build
+        run: |
+          docker build . -t igoralcantara/deployer:0.1
+      - name: publish
+        run: |
+          docker login -u igoralcantara -p ${{ secrets.DOCKER_HUB_TOKEN }}
+          docker push igoralcantara/deployer:0.1
