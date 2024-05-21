@@ -1,7 +1,8 @@
-import pika
-import json
-import os
+import json, os, pika
 import subprocess
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def deploy_stack(stack_name, stack_file_content):
     # Escreve o conteúdo do stack file em um arquivo temporário
@@ -31,7 +32,7 @@ def callback(ch, method, properties, body):
     ch.basic_ack(delivery_tag=method.delivery_tag)
 
 def main():
-    rabbitmq_queue = os.getenv('RABBITMQ_QUEUE', 'deployments')
+    rabbitmq_queue = os.getenv('RABBITMQ_QUEUE')
 
     # Conectar-se ao RabbitMQ
     credentials = pika.PlainCredentials(os.getenv("RABBITMQ_USER"), os.getenv("RABBITMQ_PASSWORD"))
